@@ -1,0 +1,250 @@
+/*
+Theme Name:   Red Point
+Theme URI:    https://github.com/xGRiFTeRx/redpoint
+Description:  Child theme for the RED POINT storefront (Hebrew/RTL, WooCommerce +
+              Elementor). Carries the fonts and design tokens from the Figma file so
+              Elementor widgets can reference them instead of hardcoding hex values.
+Author:       Rovic de Lara
+Template:     hello-elementor
+Version:      1.0.0
+Text Domain:  redpoint
+*/
+
+/*
+  ============================================================================
+  DESIGN TOKENS — read from the RED POINT Figma file (Kx2t5PDOZvCVbhCeAnqFgl)
+  ============================================================================
+
+  These mirror tailwind.config.js in the Next.js reference build one-for-one. Use the
+  variables in Elementor (any colour field accepts var(--rp-accent)) rather than pasting
+  hex codes — when the designer changes a colour, it changes in one place.
+
+  The same values are also registered as Elementor GLOBAL colours/fonts by the kit in
+  ../elementor-kit.json, so they show up in the Elementor colour picker.
+*/
+:root {
+  /* Surfaces */
+  --rp-bg: #0C0C0C;       /* page background */
+  --rp-panel: #111111;    /* product-card body */
+  --rp-surface: #252525;  /* feature-row cards */
+  --rp-well: #000000;
+
+  /* Text */
+  --rp-body: #E6E6E6;     /* body copy */
+  --rp-muted: #818181;    /* card descriptions, dates */
+  --rp-navlink: #D7D7D7;  /* header nav */
+  --rp-accent: #FF3B3B;   /* the red — headings, prices, "Read more" */
+
+  /* Category colours. Each borders its nav pill and tints that card's CTA. */
+  --rp-cat-magenta: #FF4FA8; /* לנשים */
+  --rp-cat-cyan: #25D9F5;    /* לגברים */
+  --rp-cat-pink: #FF3DD1;    /* לזוגות */
+  --rp-cat-orange: #FF8A2B;  /* צעצועי סקס */
+  --rp-cat-purple: #A45CFF;  /* חוויה אנאלית */
+  --rp-cat-yellow: #FFD13B;  /* ביגוד ולונז'ארי */
+  --rp-cat-green: #36E07A;   /* פטיש ו-BDSM */
+  --rp-cat-red: #FF3B3B;     /* חומרי סיכוך */
+  --rp-star: #FFD13B;
+
+  /* Layout */
+  --rp-shell: 1440px;  /* max page width */
+  --rp-gutter: 60px;   /* side padding — content column is 1320px */
+  --rp-pill: 100px;    /* button radius */
+
+  /* Type */
+  --rp-font-heading: 'Futurism', sans-serif;
+  --rp-font-body: 'Google Sans', sans-serif;
+}
+
+/*
+  ============================================================================
+  FONTS
+  ============================================================================
+
+  Futurism is LICENSED — it is committed here because the repo is private. If this
+  theme is ever redistributed, the two Futurism woff2 files must be removed first.
+  Light = 300, Regular = 400-700. Full Hebrew coverage (27/27 letters).
+
+  Google Sans is on Google Fonts (OFL) with a Hebrew subset and italics, but is
+  self-hosted here so the site has no third-party font request — the unicode-range
+  splits mean a Hebrew page never downloads the Latin files and vice versa.
+
+  Generated from app/globals.css in the Next.js reference build; do not hand-edit.
+*/
+@font-face {
+  font-family: 'Futurism';
+  src: url('fonts/Futurism-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Futurism';
+  src: url('fonts/Futurism-Regular.woff2') format('woff2');
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-400italic-hebrew.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-400italic-latin-ext.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-400italic-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-500italic-hebrew.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-500italic-latin-ext.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-500italic-latin.woff2') format('woff2');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-400-hebrew.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-400-latin-ext.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-400-latin.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-500-hebrew.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-500-latin-ext.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-500-latin.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-600-hebrew.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-600-latin-ext.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-600-latin.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-700-hebrew.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-700-latin-ext.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  src: url('fonts/GoogleSans-700-latin.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
