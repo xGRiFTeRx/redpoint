@@ -1,0 +1,10 @@
+# Normalise line endings so a Windows checkout doesn't rewrite every file and turn
+# each diff into noise. Source is stored LF in the repo; Git converts on checkout.
+* text=auto eol=lf
+
+# Binary — never touch these.
+*.webp binary
+*.woff2 binary
+*.zip binary
+*.png binary
+*.jpg binary
