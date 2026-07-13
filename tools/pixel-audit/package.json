@@ -1,0 +1,18 @@
+{
+  "name": "redpoint-pixel-audit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pixel-perfect audit: Figma frames vs the built site, section by section.",
+  "type": "commonjs",
+  "scripts": {
+    "audit": "node pixel-audit.js",
+    "audit:live": "node pixel-audit.js https://redpoint-preview.vercel.app",
+    "geometry": "node geometry.js"
+  },
+  "dependencies": {
+    "pixelmatch": "^6.0.0",
+    "playwright": "^1.49.0",
+    "pngjs": "^7.0.0",
+    "sharp": "^0.33.5"
+  }
+}
