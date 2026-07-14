@@ -57,7 +57,7 @@
 	text-decoration: none;
 }
 
-.rp-header__logo-mark {
+.rp-header__logo .rp-header__logo-mark {
 	width: 42px;
 	height: 60px;
 	flex-shrink: 0;

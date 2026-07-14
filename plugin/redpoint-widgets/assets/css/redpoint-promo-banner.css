@@ -1,0 +1,203 @@
+/* ================================================
+   RED POINT — PROMO BANNER  (Figma 109:295)
+   ================================================
+   section   1440x450 · bg #0C0C0C · padding 50/60   (60 on the category page — 109:1245)
+   card      1320x350 · 24px radius · 24px padding · photo fill
+   scrim     715px on the copy side, fading to #0C0C0C
+   copy      349px · 24px padding · 32px gap · Futurism 40 · body 16/1.4 white/80
+   cta       white pill 146x40, #0C0C0C label
+   chevrons  32px circles at both edges, black/30, white glyph
+   ================================================ */
+
+.rp-promo {
+	width: 100%;
+	max-width: 1440px;
+	margin: 0 auto;
+	padding: 50px 60px;
+	box-sizing: border-box;
+	background-color: #0C0C0C;
+}
+
+.rp-promo__card {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 350px;
+	padding: 24px;
+	border-radius: 24px;
+	overflow: hidden;
+	box-sizing: border-box;
+}
+
+/* ------------------------------------------------
+   MEDIA
+   ------------------------------------------------
+   No border-radius here, deliberately. The CARD already clips it (overflow:hidden +
+   border-radius); giving the image the same radius nests a second rounded clip inside the
+   first, and the two antialiased curves compound into a visible light rim on the corner.
+   One clip only. */
+.rp-promo__card .rp-promo__media {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	z-index: 0;
+}
+
+/* ------------------------------------------------
+   SCRIM
+   ------------------------------------------------
+   NO backdrop-filter, although the Figma puts a 3px blur on this. backdrop-filter promotes
+   the element to its own compositing layer, which Chrome does not antialias against the
+   parent's border-radius — leaving a hairline tracing the card's rounded corners. Verified
+   by toggling it: blur on = seam, blur off = clean. A 3px blur over a photograph is
+   invisible; the seam is not, so the blur loses.
+
+   DEVIATION FROM FIGMA on the end stop — deliberate, and client-requested.
+
+   The file's stops are 15% -> 117%, which lands the card's right edge at ~83% black. Against
+   the #0C0C0C page that edge is almost indistinguishable from the background, and the rounded
+   corner reads as a faint outlined box — the "border" the client kept reporting. It was
+   measured: there is NO rim and no seam, at DPR 1 / 1.25 / 1.5. The fade simply goes too
+   dark. 170% lands the edge at ~57%, so the banner stays visibly solid to its corner.
+
+   The end stop is a control. Set it to 117% to match the Figma exactly. */
+.rp-promo__scrim {
+	position: absolute;
+	inset-block: 0;
+	right: 0;
+	width: 715px;
+	z-index: 1;
+	pointer-events: none;
+	background-image: linear-gradient(to right, rgba(12, 12, 12, 0) 15%, rgba(12, 12, 12, 1) 170%);
+}
+
+/* ------------------------------------------------
+   COPY  — right side
+   ------------------------------------------------
+   The copy group comes first in the DOM, so under RTL it paints on the RIGHT, which is
+   where the design has it. */
+.rp-promo__group {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	gap: 24px;
+}
+
+.rp-promo__copy {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	width: 349px;
+	padding: 24px;
+	border-radius: 32px;
+	text-align: right;
+	box-sizing: border-box;
+}
+
+.rp-promo__text {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.rp-promo__title {
+	margin: 0;
+	font-family: 'Futurism', sans-serif;
+	font-size: 40px;
+	line-height: 1;
+	color: #FFFFFF;
+}
+
+.rp-promo__body {
+	margin: 0;
+	font-family: 'Google Sans', sans-serif;
+	font-size: 16px;
+	line-height: 1.4;
+	color: rgba(255, 255, 255, 0.8);
+}
+
+.rp-promo__body span {
+	display: block;
+}
+
+/* flex-start resolves to the RIGHT edge in an RTL container — which is where the design
+   puts the button. */
+.rp-promo__cta-row {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.rp-promo__cta {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 146px;
+	height: 40px;
+	padding: 0 24px;
+	border-radius: 100px;
+	background-color: #FFFFFF;
+	font-family: 'Google Sans', sans-serif;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1;
+	color: #0C0C0C;
+	white-space: nowrap;
+	text-decoration: none;
+	box-sizing: border-box;
+	transition: background-color 0.15s ease;
+}
+
+.rp-promo__cta:hover {
+	background-color: #E6E6E6;
+	color: #0C0C0C;
+}
+
+/* ------------------------------------------------
+   CHEVRONS
+   ------------------------------------------------
+   Carousel arrows at both edges. They are decoration — the banner is a single slide in the
+   Figma. display:flex kills the descender gap an inline SVG would otherwise carry. */
+.rp-promo__chevron {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-shrink: 0;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 0.3);
+	color: #FFFFFF;
+	box-sizing: border-box;
+}
+
+.rp-promo__chevron svg {
+	display: block;
+	width: 20px;
+	height: 20px;
+	fill: none;
+}
+
+/* ------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------
+   The Figma has no mobile frames, so this is a sensible fallback, not a specified layout. */
+@media (max-width: 1024px) {
+	.rp-promo {
+		padding: 32px 24px;
+	}
+	.rp-promo__scrim {
+		width: 100%;
+	}
+	.rp-promo__copy {
+		width: 100%;
+	}
+	.rp-promo__chevron {
+		display: none;
+	}
+}

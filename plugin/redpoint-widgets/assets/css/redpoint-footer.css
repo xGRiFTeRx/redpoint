@@ -107,7 +107,7 @@
 	height: 100px;
 }
 
-.rp-footer__logo-mark {
+.rp-footer__logo .rp-footer__logo-mark {
 	width: 71px;
 	height: 100px;
 	flex-shrink: 0;

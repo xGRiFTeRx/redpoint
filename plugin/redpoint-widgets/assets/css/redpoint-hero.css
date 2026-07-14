@@ -30,7 +30,7 @@
 /* ------------------------------------------------
    MEDIA + SCRIMS
    ------------------------------------------------ */
-.rp-hero__media {
+.rp-hero .rp-hero__media {
 	position: absolute;
 	inset: 0;
 	width: 100%;

@@ -33,3 +33,32 @@
 	font-family: 'Google Sans', sans-serif;
 	color: var(--rp-body, #E6E6E6);
 }
+
+/* ------------------------------------------------
+   IMAGE SIZING — READ THIS BEFORE ADDING A WIDGET
+   ------------------------------------------------
+   Elementor ships:
+
+       .elementor img { height: auto; }
+
+   Specificity (0,1,1). A plain class selector is (0,1,0), so `.rp-x__media { height: 100% }`
+   LOSES and the image silently falls back to its natural aspect ratio. Nothing errors — the
+   image simply renders the wrong size and the crop is wrong with it.
+
+   It cost a full debugging pass on the promo banner: the card was a correct 1320x350 but the
+   image inside it rendered 1320x879, so object-fit: cover never had the box it needed and the
+   banner showed a zoomed-in slice of the product instead of the whole thing.
+
+   ANY image a RED POINT widget sizes itself must be selected with at least (0,2,0) — put an
+   ancestor class in front of it:
+
+       .rp-promo__card .rp-promo__media { height: 100%; }   ✓  wins
+       .rp-promo__media               { height: 100%; }     ✗  loses to Elementor
+
+   The rule below is a backstop for the full-bleed case, but do not rely on it alone — be
+   explicit in the widget's own stylesheet. */
+[class*="elementor-widget-redpoint_"] img[class*="__media"] {
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
+}
