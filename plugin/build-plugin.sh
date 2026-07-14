@@ -31,6 +31,24 @@ VERSION="$(grep -m1 '^Version:' "${SRC}/redpoint-widgets.php" | sed 's/Version:[
 
 ZIP="${DIST}/redpoint-widgets-${VERSION}.zip"
 mkdir -p "$DIST"
+
+# Refuse to overwrite an existing version.
+#
+# The 1.0.0 zip got rebuilt three times and ended up containing three widgets while still
+# claiming to be the one-widget build — and staging would have refused it anyway, since
+# WordPress will not reinstall a plugin at a version it already has. A forgotten bump must
+# fail here, loudly, not silently ship the wrong contents.
+#
+# Pass --force to rebuild the same version deliberately (e.g. re-zipping after a bad build).
+if [ -f "$ZIP" ] && [ "${1:-}" != "--force" ]; then
+	echo "redpoint-widgets-${VERSION}.zip already exists."
+	echo
+	echo "Bump 'Version:' in redpoint-widgets/redpoint-widgets.php and note the change in"
+	echo "CHANGELOG.md — a new widget bumps the minor, a fix bumps the patch."
+	echo
+	echo "Or re-zip this same version on purpose:  bash plugin/build-plugin.sh --force"
+	exit 1
+fi
 rm -f "$ZIP"
 
 "$PHP" -r '
