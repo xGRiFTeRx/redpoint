@@ -131,8 +131,20 @@ class Hero_Widget extends Widget_Base {
 				'label'        => 'Overlap Header',
 				'type'         => Controls_Manager::SWITCHER,
 				'return_value' => 'yes',
-				'default'      => 'yes',
-				'description'  => 'Pulls the hero up under the header, so the nav floats on the photo as the design has it. No template positioning needed.',
+				/*
+				 * OFF by default, on purpose.
+				 *
+				 * The overlap is normally done in the TEMPLATE — a -100px bottom margin on the
+				 * header's container, which pulls the next section up under it. That belongs
+				 * with the template, and it works for whatever section follows the header, not
+				 * just this one.
+				 *
+				 * This control does the same thing from the hero's side, for a page that has no
+				 * such header container. Turning BOTH on pulls the hero up twice and the nav
+				 * lands 100px INTO the photo instead of on top of it.
+				 */
+				'default'      => '',
+				'description'  => 'Leave OFF if the header container already has a negative bottom margin — using both pulls the hero up twice.',
 			)
 		);
 
