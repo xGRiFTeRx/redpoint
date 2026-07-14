@@ -16,7 +16,13 @@ X="/c/xampp"
 DOCROOT="${X}/htdocs/redpoint"
 WP_PHAR="$(cd "$(dirname "$0")" && pwd)/wp-cli.phar"
 
-wp() { "${X}/php/php.exe" -d memory_limit=512M "$WP_PHAR" --path="$DOCROOT" --skip-plugins=elementor "$@"; }
+# MSYS_NO_PATHCONV: Git Bash rewrites any argument that looks like a unix path, so
+# '/%postname%/' arrives at WP-CLI as '/C:/Program Files/Git/%postname%/'. Windows-style
+# paths for --path, and no conversion for the rest.
+wp() {
+  MSYS_NO_PATHCONV=1 "${X}/php/php.exe" -d memory_limit=512M "$WP_PHAR" \
+    --path="C:/xampp/htdocs/redpoint" --skip-plugins=elementor "$@"
+}
 
 echo "== store locale"
 # The design prices in shekels ("₪610", 109:382) and the site is Hebrew. WooCommerce
@@ -36,6 +42,39 @@ wp option update woocommerce_dimension_unit "cm"
 # Woo changes these option names between versions, so never let it abort the run.
 wp option update woocommerce_onboarding_profile '{"skipped":true}' --format=json || true
 wp option update woocommerce_task_list_hidden yes || true
+
+# TURN OFF "COMING SOON". Recent WooCommerce ships this ON for a fresh install, and it
+# replaces the ENTIRE storefront with a "our store is launching soon" splash — products,
+# shop archive and all. It looks exactly like the catalogue is broken, and it is not.
+wp option update woocommerce_coming_soon no
+wp option update woocommerce_store_pages_only no
+wp option update woocommerce_private_link no
+
+# Pretty permalinks. WooCommerce archives and Elementor both need them, and WordPress
+# defaults to plain. WP-CLI will NOT write .htaccess ("requires special configuration"),
+# so it is written by hand below — without it every URL but the home page 404s.
+wp rewrite structure '/%postname%/' --hard || true
+wp rewrite flush --hard || true
+
+HTACCESS="${DOCROOT}/.htaccess"
+if [ ! -f "$HTACCESS" ]; then
+  # RewriteBase is /redpoint/ because the site sits in a SUBDIRECTORY of htdocs, not at
+  # the docroot. Getting that wrong is the usual cause of "home works, everything 404s".
+  cat > "$HTACCESS" <<'HTA'
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /redpoint/
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /redpoint/index.php [L]
+</IfModule>
+# END WordPress
+HTA
+  echo "   wrote .htaccess"
+fi
 
 echo "== product categories"
 # The eight categories from the design (109:1174 in the filter rail, and the nav pills).
