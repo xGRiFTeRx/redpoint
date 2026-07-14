@@ -6,3 +6,6 @@ out
 
 .vercel
 .env*
+
+# WP-CLI binary, fetched by setup-xampp.sh
+wordpress/wp-cli.phar
