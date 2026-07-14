@@ -110,6 +110,61 @@ class Hero_Widget extends Widget_Base {
 			)
 		);
 
+		/*
+		 * OVERLAP THE HEADER.
+		 *
+		 * In the design the nav floats ON the hero photograph — it is inside the Hero frame
+		 * (109:214 sits within 109:212), not above it.
+		 *
+		 * This is done by pulling the HERO UP under the header, not by absolutely positioning
+		 * the header. Absolute positioning an Elementor header is unstable: offsets drift, it
+		 * fights Elementor's own z-index stack, and it breaks at breakpoints. The header stays
+		 * in normal flow (it only carries position:relative + z-index so the hero cannot paint
+		 * over it), and a negative margin here achieves the same overlap with nothing to drift.
+		 *
+		 * The hero already reserves 100px of top padding for the nav, so the copy still starts
+		 * below it — the two numbers are the same and should move together.
+		 */
+		$this->add_control(
+			'overlap_header',
+			array(
+				'label'        => 'Overlap Header',
+				'type'         => Controls_Manager::SWITCHER,
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'description'  => 'Pulls the hero up under the header, so the nav floats on the photo as the design has it. No template positioning needed.',
+			)
+		);
+
+		$this->add_responsive_control(
+			'header_height',
+			array(
+				'label'      => 'Header Height',
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => array( 'px' ),
+				'range'      => array( 'px' => array( 'min' => 0, 'max' => 200 ) ),
+				'default'    => array( 'unit' => 'px', 'size' => 100 ),
+				'selectors'  => array(
+					/*
+					 * The margin goes on {{WRAPPER}} — the widget element itself — NOT on
+					 * .rp-hero inside it.
+					 *
+					 * Elementor's containers are flex, and flex containers do not collapse
+					 * margins. Pulling .rp-hero up from inside left its container still
+					 * reserving the full 800px, so the hero overlapped correctly but the page
+					 * grew a 100px dead gap at the foot. On the widget wrapper the negative
+					 * margin reduces the flex item's outer height, so the container shrinks
+					 * with it and the page comes out at exactly 800.
+					 */
+					'{{WRAPPER}}'                 => 'margin-top: -{{SIZE}}{{UNIT}};',
+					// Reserve the same space inside, so the copy still clears the nav.
+					'{{WRAPPER}} .rp-hero__inner' => 'padding-top: {{SIZE}}{{UNIT}};',
+				),
+				'condition'  => array( 'overlap_header' => 'yes' ),
+				'description' => 'Must match the header’s height — 100px in the design (109:214).',
+			)
+		);
+
 		$this->end_controls_section();
 
 		/* ── Media ── */

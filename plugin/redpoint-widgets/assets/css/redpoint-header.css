@@ -13,6 +13,22 @@
 	   its own scrim behind it (109:213). Give the Elementor container a background if a
 	   solid header is wanted on inner pages. */
 	background: transparent;
+
+	/* ------------------------------------------------
+	   OVERLAP
+	   ------------------------------------------------
+	   The header STAYS IN NORMAL FLOW. The Hero pulls itself up underneath it with a
+	   negative top margin (see its "Overlap Header" control) — position:absolute is
+	   deliberately NOT used.
+
+	   Absolute positioning an Elementor header is unstable: the offsets drift, it fights
+	   Elementor's own z-index stack, and it breaks at breakpoints. A negative margin on the
+	   NEXT section achieves the same overlap with nothing to drift.
+
+	   relative + z-index is all this needs: the hero comes later in the DOM, so without a
+	   stacking context of its own the header would be painted over by it. */
+	position: relative;
+	z-index: 10;
 }
 
 .rp-header__bar {
