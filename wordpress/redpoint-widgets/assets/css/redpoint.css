@@ -1,0 +1,35 @@
+/* ================================================
+   RED POINT WIDGETS — shared
+   ================================================
+   Loaded before every widget stylesheet. Holds only what is genuinely global; anything
+   that belongs to one section lives in that section's own file.
+
+   The FONTS and the page background come from the child theme (redpoint-child), not from
+   here — the theme owns the @font-face rules and the design tokens. This file only makes
+   sure Elementor's own wrappers do not fight the sections.
+   ================================================ */
+
+/* ------------------------------------------------
+   ELEMENTOR WRAPPER RESETS
+   ------------------------------------------------
+   Every RED POINT section is a full-bleed band that draws its own background and its own
+   60px gutter. Elementor's widget container adds padding of its own, which would inset the
+   band and break the 1440/1320 grid the whole design is built on. */
+[class*="elementor-widget-redpoint_"] {
+	width: 100%;
+}
+
+[class*="elementor-widget-redpoint_"] > .elementor-widget-container {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+/* ------------------------------------------------
+   BASE TYPE
+   ------------------------------------------------
+   Google Sans for body copy, Futurism for headings — the two faces the design uses. Both
+   are declared by the child theme; this just points the widgets at them. */
+[class*="elementor-widget-redpoint_"] {
+	font-family: 'Google Sans', sans-serif;
+	color: var(--rp-body, #E6E6E6);
+}

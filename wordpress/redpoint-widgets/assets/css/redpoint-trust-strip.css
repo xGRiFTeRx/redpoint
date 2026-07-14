@@ -1,0 +1,125 @@
+/* ================================================
+   RED POINT — TRUST STRIP  (Figma 109:257)
+   ================================================
+   section  1440x154 · bg #0C0C0C · padding 30/60 · items centred, 90px apart
+   item     131 wide · 44x44 icon · 16px · title · 8px · subline
+   ================================================ */
+
+.rp-trust {
+	background-color: #0C0C0C;
+	padding: 30px 60px;
+}
+
+/* ------------------------------------------------
+   ITEMS ROW
+   ------------------------------------------------
+   direction: ltr is deliberate and load-bearing.
+
+   The page is RTL, so a flex row fills RIGHT to LEFT and the first item would paint on the
+   right. But the Figma canvas is LTR and its items read left to right — אריזה פשוטה sits
+   at x=323, the award at x=986 (109:258 .. 109:287). Under plain RTL the whole strip comes
+   out mirrored against the design.
+
+   Forcing the ROW to ltr makes the repeater's order match what the client sees on screen,
+   left to right, exactly as the design lists them. Each ITEM is switched back to rtl below
+   so its Hebrew text still shapes correctly. Reversing the array instead would have worked
+   visually but would leave the client editing a list that runs backwards.
+
+   (Mirrored rows were the single most recurring bug on the Next.js build of this design.
+   Check the handedness of every row before calling a section done.) */
+.rp-trust__items {
+	display: flex;
+	direction: ltr;
+	justify-content: center;
+	align-items: center;
+	gap: 90px;
+}
+
+.rp-trust__item {
+	direction: rtl;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	width: 131px;
+}
+
+/* ------------------------------------------------
+   ICON  (109:259)
+   ------------------------------------------------
+   A 20px glyph with 12px of padding on a 10%-red ground = 44x44.
+
+   display:flex, not inline-block: an inline SVG sits on the text baseline and carries the
+   descender gap below it, which made the pill 50px tall instead of 44 and pushed the whole
+   section 6px past the design. */
+.rp-trust__icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	padding: 12px;
+	border-radius: 50%;
+	background-color: rgba(255, 59, 59, 0.1);
+	color: #FF3B3B;
+	box-sizing: border-box;
+}
+
+/* The SVGs are stroke paths on a fill="none" root and are coloured through currentColor,
+   so the `color` above drives them. fill:none is restated because Elementor's own icon
+   rules are aggressive about filling SVGs. */
+.rp-trust__icon svg {
+	display: block;
+	width: 20px;
+	height: 20px;
+	fill: none;
+}
+
+/* ------------------------------------------------
+   TEXT  (109:265) — 14 + 8 + 12 = 34px tall
+   ------------------------------------------------ */
+.rp-trust__text {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 8px;
+	width: 100%;
+	text-align: center;
+}
+
+.rp-trust__title,
+.rp-trust__subtitle {
+	margin: 0;
+	line-height: 1;
+}
+
+.rp-trust__title {
+	font-family: 'Google Sans', sans-serif;
+	font-weight: 500;
+	font-size: 14px;
+	color: #FFFFFF;
+}
+
+.rp-trust__subtitle {
+	font-family: 'Google Sans', sans-serif;
+	font-weight: 400;
+	font-size: 12px;
+	/* rgba(255,255,255,0.35) — NOT #818181. They look alike on black and are not the
+	   same value (109:267). */
+	color: rgba(255, 255, 255, 0.35);
+}
+
+/* ------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------
+   The design is desktop-only (the Figma has no mobile frames), so this is a sensible
+   fallback rather than a specified layout. Flag to the designer if mobile matters. */
+@media (max-width: 1024px) {
+	.rp-trust {
+		padding: 30px 24px;
+	}
+	.rp-trust__items {
+		flex-wrap: wrap;
+		gap: 40px;
+	}
+}
