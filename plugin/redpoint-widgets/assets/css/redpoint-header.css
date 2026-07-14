@@ -1,0 +1,187 @@
+/* ================================================
+   RED POINT — HEADER  (Figma 109:214)
+   ================================================
+   bar    1440x100 · padding 20/60 · space-between · TRANSPARENT (it floats over the hero)
+   logo   176x60 (109:231) · mark + "רד" / "פוינט" in Futurism
+   links  16px Google Sans Medium #D7D7D7 · 24px apart · active is Bold white
+   icons  four 32x32 chips (109:215) · 20px stroke glyph on rgba(37,37,37,0.2)
+   ================================================ */
+
+.rp-header {
+	width: 100%;
+	/* No background: in the design the bar sits ON the hero photograph, and the hero draws
+	   its own scrim behind it (109:213). Give the Elementor container a background if a
+	   solid header is wanted on inner pages. */
+	background: transparent;
+}
+
+.rp-header__bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	max-width: 1440px;
+	height: 100px;
+	margin: 0 auto;
+	padding: 20px 60px;
+	box-sizing: border-box;
+}
+
+/* ------------------------------------------------
+   LOGO  (109:231) — 176x60, rightmost
+   ------------------------------------------------
+   The mark comes first in the DOM so RTL paints it to the RIGHT of the words, matching
+   the design. */
+.rp-header__logo {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	width: 176px;
+	height: 60px;
+	flex-shrink: 0;
+	text-decoration: none;
+}
+
+.rp-header__logo-mark {
+	width: 42px;
+	height: 60px;
+	flex-shrink: 0;
+	object-fit: contain;
+}
+
+.rp-header__logo-text {
+	display: flex;
+	flex-direction: column;
+	font-family: 'Futurism', sans-serif;
+	font-size: 42px;
+	/* 0.72, not the Figma's 0.56 — see the DEVIATION note in the widget class. The client
+	   rejected the density the file specifies. */
+	line-height: 0.72;
+	text-align: right;
+}
+
+.rp-header__logo-line--1 {
+	/* #D8103A — the wordmark's own red, DEEPER than the site accent #FF3B3B. Not a mistake;
+	   do not "correct" it to the accent. */
+	color: #D8103A;
+}
+
+.rp-header__logo-line--2 {
+	color: #FFFFFF;
+}
+
+/* ------------------------------------------------
+   LINKS  (109:224) — centre
+   ------------------------------------------------
+   No direction override here, unlike the icon row below. The design's LAST link (בית) is
+   its rightmost, and under RTL the FIRST child paints rightmost — so listing them in
+   Hebrew reading order (בית first) puts them exactly where the design has them. RTL and
+   the design happen to agree. */
+.rp-header__links {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 24px;
+}
+
+.rp-header__link {
+	font-family: 'Google Sans', sans-serif;
+	font-weight: 500;
+	font-size: 16px;
+	line-height: 1;
+	color: #D7D7D7;
+	text-decoration: none;
+	white-space: nowrap;
+	transition: color 0.15s ease;
+}
+
+.rp-header__link:hover {
+	color: #FFFFFF;
+}
+
+.rp-header__link--active {
+	font-weight: 700;
+	color: #FFFFFF;
+}
+
+/* ------------------------------------------------
+   ICONS  (109:215) — leftmost
+   ------------------------------------------------
+   direction: ltr is load-bearing. The design reads bag → account → wishlist → search from
+   the LEFT (Figma's canvas is LTR, and the bag is its first child). Under the page's RTL
+   the row would fill right-to-left and put the bag on the far right of the group —
+   mirrored. Forcing the row to ltr keeps the source order and the visual order the same.
+
+   (Mirrored rows were the single most recurring bug on the Next.js build of this design.
+   Check the handedness of every row.) */
+.rp-header__icons {
+	display: flex;
+	direction: ltr;
+	align-items: center;
+	gap: 16px;
+}
+
+.rp-header__icon {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	padding: 6px;
+	border-radius: 100px;
+	background-color: rgba(37, 37, 37, 0.2);
+	color: #FFFFFF;
+	box-sizing: border-box;
+	transition: background-color 0.15s ease;
+}
+
+.rp-header__icon:hover {
+	background-color: rgba(37, 37, 37, 0.5);
+}
+
+/* Stroke glyphs on a fill="none" root, coloured through currentColor — the same reason
+   the stock Elementor icon control cannot be used for these. display:block kills the
+   descender gap an inline SVG would otherwise carry. */
+.rp-header__icon svg {
+	display: block;
+	width: 20px;
+	height: 20px;
+	fill: none;
+}
+
+/* Cart count. The design draws no badge — its mock cart is empty — so this only appears
+   once WooCommerce reports items. */
+.rp-header__badge {
+	position: absolute;
+	top: -4px;
+	right: -4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 18px;
+	height: 18px;
+	padding: 0 4px;
+	border-radius: 9999px;
+	background-color: #FF3B3B;
+	font-family: 'Google Sans', sans-serif;
+	font-size: 10px;
+	font-weight: 600;
+	line-height: 1;
+	color: #FFFFFF;
+	box-sizing: border-box;
+}
+
+/* ------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------
+   The Figma has no mobile frames, so this is a sensible fallback rather than a specified
+   layout — the links collapse out and the bar keeps the logo and the icons. Worth getting
+   a mobile design from the designer before this ships. */
+@media (max-width: 1024px) {
+	.rp-header__bar {
+		padding: 20px 24px;
+	}
+	.rp-header__links {
+		display: none;
+	}
+}
