@@ -43,9 +43,11 @@ add_action(
 	'elementor/widgets/register',
 	function ( $widgets_manager ) {
 		require_once REDPOINT_WIDGETS_PATH . 'widgets/class-header-widget.php';
+		require_once REDPOINT_WIDGETS_PATH . 'widgets/class-footer-widget.php';
 		require_once REDPOINT_WIDGETS_PATH . 'widgets/class-trust-strip-widget.php';
 
 		$widgets_manager->register( new \RedPoint\Widgets\Header_Widget() );
+		$widgets_manager->register( new \RedPoint\Widgets\Footer_Widget() );
 		$widgets_manager->register( new \RedPoint\Widgets\Trust_Strip_Widget() );
 	}
 );
@@ -66,6 +68,13 @@ function redpoint_widgets_enqueue_assets() {
 	wp_enqueue_style(
 		'redpoint-widgets-header',
 		REDPOINT_WIDGETS_URL . 'assets/css/redpoint-header.css',
+		array( 'redpoint-widgets' ),
+		REDPOINT_WIDGETS_VERSION
+	);
+
+	wp_enqueue_style(
+		'redpoint-widgets-footer',
+		REDPOINT_WIDGETS_URL . 'assets/css/redpoint-footer.css',
 		array( 'redpoint-widgets' ),
 		REDPOINT_WIDGETS_VERSION
 	);

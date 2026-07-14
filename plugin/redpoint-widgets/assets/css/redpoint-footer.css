@@ -1,0 +1,178 @@
+/* ================================================
+   RED POINT — FOOTER  (Figma 109:750 / 109:763)
+   ================================================
+   section    padding 32/60 · gap 40 · bg #0C0C0C
+   links row  1320x224 (109:764) · four blocks · space-between
+   column     heading Futurism 24 accent red · links Google Sans 16/24 white · 16px apart
+   logo       237px block · 71x100 mark · "רד"/"פוינט" Futurism 64 · tagline Futurism 24
+   copyright  14/20 muted, LEFT (109:792 sits at x=0)
+   ================================================ */
+
+.rp-footer {
+	width: 100%;
+	background-color: #0C0C0C;
+	padding: 32px 0;
+	box-sizing: border-box;
+}
+
+.rp-footer__inner {
+	display: flex;
+	flex-direction: column;
+	/* 50px, not 40. The links row (109:764) is 224 tall and the copyright container
+	   (109:792) starts at y=274 — so the gap between them is 50. */
+	gap: 50px;
+	max-width: 1440px;
+	margin: 0 auto;
+	padding: 0 60px;
+	box-sizing: border-box;
+}
+
+/* ------------------------------------------------
+   COLUMNS  (109:764)
+   ------------------------------------------------
+   No direction override, and that is deliberate — unlike the header's icon row.
+
+   The design's blocks read logo (x=0) → links → links → links left-to-right on Figma's LTR
+   canvas, so its RIGHTMOST block is the LAST one on the canvas. Under RTL the FIRST DOM
+   child paints rightmost. Declaring them right-to-left in the markup (col 1, col 2, col 3,
+   then the logo) therefore lands them exactly where the design has them, with the logo
+   leftmost.
+
+   Check the handedness of every row — the answer is not the same for every row, even
+   within one section. (In the header the links needed no flip and the icons did.) */
+.rp-footer__cols {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 40px;
+	width: 100%;
+}
+
+.rp-footer__col {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 16px;
+	text-align: right;
+}
+
+.rp-footer__heading {
+	margin: 0;
+	font-family: 'Futurism', sans-serif;
+	font-size: 24px;
+	line-height: 1;
+	color: #FF3B3B;
+}
+
+.rp-footer__list {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.rp-footer__link {
+	font-family: 'Google Sans', sans-serif;
+	font-size: 16px;
+	line-height: 24px;
+	color: #FFFFFF;
+	text-decoration: none;
+	transition: color 0.15s ease;
+}
+
+.rp-footer__link:hover {
+	color: #FF3B3B;
+}
+
+/* ------------------------------------------------
+   BRAND BLOCK  (109:765) — 237px, leftmost
+   ------------------------------------------------ */
+.rp-footer__brand {
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	width: 237px;
+}
+
+/* The mark comes first in the DOM so RTL paints it to the RIGHT of the words — same as the
+   header. */
+.rp-footer__logo {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 8px;
+	height: 100px;
+}
+
+.rp-footer__logo-mark {
+	width: 71px;
+	height: 100px;
+	flex-shrink: 0;
+	object-fit: contain;
+}
+
+.rp-footer__logo-text {
+	display: flex;
+	flex-direction: column;
+	font-family: 'Futurism', sans-serif;
+	/* 64px — the footer wordmark is BIGGER than the header's 42px (109:766 is a 100px block
+	   against the header's 60px). */
+	font-size: 64px;
+	/* 0.72, not the Figma's 0.56 — the client rejected the density the file specifies. Same
+	   deviation as the header; see the note in class-header-widget.php. */
+	line-height: 0.72;
+	text-align: right;
+}
+
+.rp-footer__logo-line--1 {
+	/* #D8103A — the wordmark's own red, deeper than the site accent #FF3B3B. */
+	color: #D8103A;
+}
+
+.rp-footer__logo-line--2 {
+	color: #FFFFFF;
+}
+
+.rp-footer__tagline {
+	margin: 0;
+	font-family: 'Futurism', sans-serif;
+	font-size: 24px;
+	line-height: 1.3;
+	color: #FFFFFF;
+	text-align: right;
+}
+
+/* ------------------------------------------------
+   COPYRIGHT  (109:792)
+   ------------------------------------------------
+   LEFT-aligned, not right. The container sits at x=0 on the design's LTR canvas, which is
+   the left edge — so on an RTL page it is the "wrong" side by instinct and the right side
+   by the file. text-align:left is literal and survives the RTL context. */
+.rp-footer__copyright {
+	margin: 0;
+	width: 100%;
+	font-family: 'Google Sans', sans-serif;
+	font-size: 14px;
+	line-height: 20px;
+	color: #818181;
+	text-align: left;
+}
+
+/* ------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------
+   The Figma has no mobile frames, so this is a sensible fallback, not a specified layout. */
+@media (max-width: 1024px) {
+	.rp-footer__inner {
+		padding: 0 24px;
+	}
+	.rp-footer__cols {
+		gap: 32px;
+	}
+	.rp-footer__brand {
+		width: 100%;
+	}
+}
