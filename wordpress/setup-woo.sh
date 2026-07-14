@@ -16,12 +16,16 @@ X="/c/xampp"
 DOCROOT="${X}/htdocs/redpoint"
 WP_PHAR="$(cd "$(dirname "$0")" && pwd)/wp-cli.phar"
 
-# MSYS_NO_PATHCONV: Git Bash rewrites any argument that looks like a unix path, so
-# '/%postname%/' arrives at WP-CLI as '/C:/Program Files/Git/%postname%/'. Windows-style
-# paths for --path, and no conversion for the rest.
+# MSYS_NO_PATHCONV stops Git Bash rewriting arguments that look like unix paths — without
+# it, '/%postname%/' reaches WP-CLI as '/C:/Program Files/Git/%postname%/'. But it disables
+# conversion for EVERY argument, so the phar and --path must both be given Windows-style
+# or PHP cannot find them either.
+WP_PHAR_WIN="$(cygpath -w "$WP_PHAR")"
+DOCROOT_WIN="$(cygpath -w "$DOCROOT")"
+
 wp() {
-  MSYS_NO_PATHCONV=1 "${X}/php/php.exe" -d memory_limit=512M "$WP_PHAR" \
-    --path="C:/xampp/htdocs/redpoint" --skip-plugins=elementor "$@"
+  MSYS_NO_PATHCONV=1 "${X}/php/php.exe" -d memory_limit=512M "$WP_PHAR_WIN" \
+    --path="$DOCROOT_WIN" --skip-plugins=elementor "$@"
 }
 
 echo "== store locale"
