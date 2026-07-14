@@ -9,6 +9,22 @@ refuses to overwrite a zip that already exists, so a forgotten bump fails loudly
 silently shipping the wrong contents.
 
 ---
+## 1.3.0
+- **Hero** (109:212). 1440x800 — height exact, 2.4% pixel diff (the noise floor; the Next.js
+  build scores 2.5% on the same comparison).
+- The pill strip reads the eight categories **live from WooCommerce**, colour included —
+  `setup-woo.sh` stores each category's design colour as `rp_colour` term meta, so adding a
+  category in Woo makes it appear here. Switch to a manual list if that is not wanted.
+- Three layouts in one widget, because the design uses the section three ways: **full**
+  (800px, media + title + pills) for home and category, **compact** (220px, pills only) for
+  the product page.
+- The hero fill is a **VIDEO** in the Figma (`6037377_Woman_Sexy_1280x720`), not a still.
+  The shipped image is only its poster frame — set the Video URL when the client supplies
+  the clip.
+- The top scrim is **NOT in the design**. Figma's one hero photo is dark so the white nav
+  reads over it; the category heroes vary and the nav vanished on the lighter ones. It is
+  invisible over a dark image. Toggle it off to match the Figma exactly.
+
 
 ## 1.2.0
 - **Footer** (109:750 / 109:763). Blocks land within a pixel of the design's node positions;

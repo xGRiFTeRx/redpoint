@@ -4,7 +4,7 @@ Plugin Name: RED POINT Widgets
 Plugin URI:  https://github.com/xGRiFTeRx/redpoint
 Description: Custom Elementor widgets for the RED POINT store (RTL Hebrew). One widget per
              section of the Figma design, so a section can be fixed in isolation.
-Version:     1.2.0
+Version:     1.3.0
 Author:      Rovic de Lara
 Text Domain: redpoint-widgets
 */
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'REDPOINT_WIDGETS_VERSION', '1.2.0' );
+define( 'REDPOINT_WIDGETS_VERSION', '1.3.0' );
 define( 'REDPOINT_WIDGETS_FILE', __FILE__ );
 define( 'REDPOINT_WIDGETS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'REDPOINT_WIDGETS_URL', plugin_dir_url( __FILE__ ) );
@@ -43,10 +43,12 @@ add_action(
 	'elementor/widgets/register',
 	function ( $widgets_manager ) {
 		require_once REDPOINT_WIDGETS_PATH . 'widgets/class-header-widget.php';
+		require_once REDPOINT_WIDGETS_PATH . 'widgets/class-hero-widget.php';
 		require_once REDPOINT_WIDGETS_PATH . 'widgets/class-footer-widget.php';
 		require_once REDPOINT_WIDGETS_PATH . 'widgets/class-trust-strip-widget.php';
 
 		$widgets_manager->register( new \RedPoint\Widgets\Header_Widget() );
+		$widgets_manager->register( new \RedPoint\Widgets\Hero_Widget() );
 		$widgets_manager->register( new \RedPoint\Widgets\Footer_Widget() );
 		$widgets_manager->register( new \RedPoint\Widgets\Trust_Strip_Widget() );
 	}
@@ -68,6 +70,13 @@ function redpoint_widgets_enqueue_assets() {
 	wp_enqueue_style(
 		'redpoint-widgets-header',
 		REDPOINT_WIDGETS_URL . 'assets/css/redpoint-header.css',
+		array( 'redpoint-widgets' ),
+		REDPOINT_WIDGETS_VERSION
+	);
+
+	wp_enqueue_style(
+		'redpoint-widgets-hero',
+		REDPOINT_WIDGETS_URL . 'assets/css/redpoint-hero.css',
 		array( 'redpoint-widgets' ),
 		REDPOINT_WIDGETS_VERSION
 	);
