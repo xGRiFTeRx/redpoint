@@ -248,3 +248,25 @@ Text Domain:  redpoint
   font-display: swap;
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
+/*
+  ============================================================================
+  STROKE ICONS
+  ============================================================================
+
+  Figma exports its icons as STROKE paths on a `fill="none"` root, coloured through a
+  `var(--stroke-0, …)` custom property. Elementor's icon widget then forces
+  `fill: <primary_color>` onto the <svg> AND every <path> inside it — which fills the
+  outline in and turns each icon into a solid blob. It still scores at the pixel-diff
+  noise floor, because the icons are small; it is obvious to the eye.
+
+  Scoped to `.rp-icon-stroke` rather than applied to every Elementor icon, so a genuinely
+  filled icon added later still works. Put the class in the widget's CSS Classes field.
+*/
+.rp-icon-stroke {
+  --stroke-0: var(--rp-accent);
+}
+.rp-icon-stroke svg,
+.rp-icon-stroke svg path {
+  fill: none !important;
+}

@@ -2,10 +2,10 @@
 #
 # Package the widgets plugin for upload to staging.
 #
-#   bash wordpress/build-plugin.sh
+#   bash plugin/build-plugin.sh
 #
-# Produces wordpress/dist/redpoint-widgets-<VERSION>.zip. The version is read from the
-# plugin header, so bump it there and nowhere else.
+# Produces plugin/dist/redpoint-widgets-<VERSION>.zip. The version is read from the plugin
+# header, so bump it there and nowhere else.
 #
 # The archive contains a single top-level redpoint-widgets/ folder — that is what
 # WordPress's Plugins > Add New > Upload Plugin expects, and it is how the Espressimo dist

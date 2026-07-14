@@ -103,6 +103,48 @@ add_action(
 );
 
 /**
+ * Allow SVG uploads — ADMINISTRATORS ONLY.
+ *
+ * The design's icons are SVGs (trust badges, value badges, carets, arrows), and Elementor's
+ * icon widget can point at an uploaded SVG. WordPress blocks the mime type by default.
+ *
+ * The capability check is the whole point: an SVG is an XML document and can carry inline
+ * <script>, so letting an untrusted role upload one is a stored-XSS vector. Restricting to
+ * `unfiltered_html` means only admins — who can already inject scripts by design — gain
+ * anything. Do NOT loosen this to `upload_files`, which subscribers and customers hold on
+ * a WooCommerce site.
+ */
+add_filter(
+	'upload_mimes',
+	function ( $mimes ) {
+		if ( current_user_can( 'unfiltered_html' ) ) {
+			$mimes['svg'] = 'image/svg+xml';
+		}
+		return $mimes;
+	}
+);
+
+/**
+ * WordPress sniffs file contents and rejects an SVG whose real type does not match the
+ * extension. Trust the extension only for the roles allowed above.
+ */
+add_filter(
+	'wp_check_filetype_and_ext',
+	function ( $data, $file, $filename ) {
+		if ( ! current_user_can( 'unfiltered_html' ) ) {
+			return $data;
+		}
+		if ( str_ends_with( strtolower( $filename ), '.svg' ) ) {
+			$data['ext']  = 'svg';
+			$data['type'] = 'image/svg+xml';
+		}
+		return $data;
+	},
+	10,
+	3
+);
+
+/**
  * WooCommerce support.
  *
  * Hello Elementor already declares this, but the child theme must re-declare it or the
