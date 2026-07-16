@@ -1,0 +1,199 @@
+/* ================================================
+   RED POINT — PRODUCT CARD  (Figma 109:377)
+   ================================================
+   Shared by Best Sellers, Worth Attention, upsell, "you may like".
+   card 318x563 (full) / 244x438 (compact)
+   ================================================ */
+
+.rp-pcard {
+	display: flex;
+	flex-direction: column;
+}
+
+/* ------------------------------------------------
+   IMAGE  (109:377) — 362px, 1px white/10 border, 4px top radius
+   ------------------------------------------------ */
+.rp-pcard__media {
+	position: relative;
+	display: block;
+	height: 362px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 4px 4px 0 0;
+	overflow: hidden;
+}
+
+.rp-pcard--compact .rp-pcard__media {
+	height: 279px;
+}
+
+/* Ancestor in the selector (0,2,0) so it beats Elementor's `.elementor img{height:auto}`
+   (0,1,1) — otherwise the photo collapses to natural aspect. See redpoint.css. */
+.rp-pcard__media .rp-pcard__img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* Badge, top-LEFT (109:400). left, not right — it stays on the left under RTL. */
+.rp-pcard__badge {
+	position: absolute;
+	top: 15px;
+	left: 15px;
+	display: inline-flex;
+	align-items: center;
+	padding: 8px 12px;
+	border-radius: 100px;
+	background-color: rgba(255, 255, 255, 0.2);
+	font-family: 'Google Sans', sans-serif;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 1;
+	color: #FFFFFF;
+}
+
+.rp-pcard--compact .rp-pcard__badge {
+	font-size: 14px;
+	padding: 6px 10px;
+}
+
+/* ------------------------------------------------
+   BODY  (109:378) — #111, 16px padding, 4px bottom radius
+   ------------------------------------------------ */
+.rp-pcard__body {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 16px;
+	background-color: #111111;
+	border-radius: 0 0 4px 4px;
+}
+
+.rp-pcard__group {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+/* Name (right) | prices (left). leading-none keeps the row exactly as tall as the 18px
+   name — Tailwind/Elementor default line-heights would inflate it, which is what pushed the
+   grids off their design height on the Next.js build. */
+.rp-pcard__row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	line-height: 1;
+}
+
+.rp-pcard__name {
+	font-family: 'Google Sans', sans-serif;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 1;
+	color: #FFFFFF;
+	text-decoration: none;
+}
+
+.rp-pcard--compact .rp-pcard__name {
+	font-size: 14px;
+}
+
+/* new price first (right under RTL), struck old price second (left). */
+.rp-pcard__prices {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	line-height: 1;
+}
+
+.rp-pcard__price {
+	font-family: 'Google Sans', sans-serif;
+	font-size: 16px;
+	line-height: 1;
+	color: #FFFFFF;
+	white-space: nowrap;
+}
+
+.rp-pcard--compact .rp-pcard__price {
+	font-size: 12px;
+}
+
+.rp-pcard__price--old {
+	color: #FF3B3B;
+	text-decoration: line-through;
+}
+
+/* WooCommerce wraps prices in <span class="woocommerce-Price-amount">; strip its default
+   spacing so it sits inline. */
+.rp-pcard__price .woocommerce-Price-amount {
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+}
+
+/* Stars — five 11px gold glyphs (109:384). */
+.rp-pcard__stars {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.rp-pcard__star {
+	width: 11px;
+	height: 11px;
+	flex-shrink: 0;
+	color: rgba(255, 255, 255, 0.15);
+}
+
+.rp-pcard__star.is-on {
+	color: #FFD13B;
+}
+
+.rp-pcard--compact .rp-pcard__star {
+	width: 10px;
+	height: 10px;
+}
+
+/* Description — #818181 14/1.4, right. dir=ltr on the element keeps a Latin sentence's
+   trailing full stop at the correct end under the RTL page. */
+.rp-pcard__desc {
+	margin: 0;
+	font-family: 'Google Sans', sans-serif;
+	font-size: 14px;
+	line-height: 1.4;
+	color: #818181;
+	text-align: right;
+}
+
+.rp-pcard--compact .rp-pcard__desc {
+	font-size: 12px;
+}
+
+/* Button — full width, 40px, 1px white/40 pill, 12px label. */
+.rp-pcard__btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 40px;
+	padding: 0 32px;
+	border: 1px solid rgba(255, 255, 255, 0.4);
+	border-radius: 100px;
+	font-family: 'Google Sans', sans-serif;
+	font-weight: 500;
+	font-size: 12px;
+	line-height: 1;
+	color: #FFFFFF;
+	text-align: center;
+	text-decoration: none;
+	transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.rp-pcard__btn:hover {
+	border-color: rgba(255, 255, 255, 0.9);
+	color: #FFFFFF;
+}
+
+.rp-pcard--compact .rp-pcard__btn {
+	height: 32px;
+}

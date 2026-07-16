@@ -70,6 +70,12 @@ echo "$PRODUCTS" | while IFS='|' read -r slug name regular sale cat img; do
           --post_status=publish --post_content="$DESC" --porcelain)"
   fi
 
+  # The SHORT description (post_excerpt) is what the product card shows — the design draws a
+  # 3-line description on every card, and without it each card's info block is ~60px short,
+  # pulling the Best Sellers / Worth Attention grids off their design height. Real products
+  # carry one; the demo seed must too.
+  wp post update "$id" --post_excerpt="$DESC" >/dev/null
+
   wp post meta update "$id" _regular_price "$regular" >/dev/null
   if [ "$sale" != "-" ]; then
     wp post meta update "$id" _sale_price "$sale" >/dev/null

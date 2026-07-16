@@ -1,0 +1,81 @@
+/* ================================================
+   RED POINT — BEST SELLERS  "הנמכרים ביותר"  (Figma 109:372)
+   ================================================
+   section  1440x838 · padding 90/60/0 · heading, 50px gap, row of cards, dots
+   ================================================ */
+
+.rp-bestsellers {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	width: 100%;
+	max-width: 1440px;
+	margin: 0 auto;
+	/* No bottom padding — the design's dots sit flush with the section foot (109:372 is the
+	   one grid the file draws that way; every other has 68px). */
+	padding: 90px 60px 0;
+	box-sizing: border-box;
+}
+
+.rp-carousel {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+}
+
+/* One page = a row of `--rp-cols` cards. Pages stack; the JS shows one at a time. */
+.rp-carousel__page {
+	display: grid;
+	grid-template-columns: repeat(var(--rp-cols, 4), 1fr);
+	gap: 16px;
+}
+
+.rp-carousel__page[hidden] {
+	display: none;
+}
+
+/* ------------------------------------------------
+   DOTS
+   ------------------------------------------------ */
+.rp-carousel__dots {
+	display: flex;
+	justify-content: center;
+	gap: 16px;
+}
+
+.rp-carousel__dot {
+	width: 13px;
+	height: 13px;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background-color: rgba(255, 255, 255, 0.2);
+	cursor: pointer;
+	transition: background-color 0.15s ease;
+}
+
+.rp-carousel__dot:hover {
+	background-color: rgba(255, 255, 255, 0.4);
+}
+
+.rp-carousel__dot.is-active {
+	background-color: #FF3B3B;
+}
+
+/* ------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------ */
+@media (max-width: 1024px) {
+	.rp-bestsellers {
+		padding: 60px 24px 0;
+	}
+	.rp-carousel__page {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 560px) {
+	.rp-carousel__page {
+		grid-template-columns: 1fr;
+	}
+}

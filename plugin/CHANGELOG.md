@@ -9,6 +9,20 @@ refuses to overwrite a zip that already exists, so a forgotten bump fails loudly
 silently shipping the wrong contents.
 
 ---
+## 1.6.0
+- **Best Sellers** — "הנמכרים ביותר" (109:372). The first widget that binds to WooCommerce:
+  it queries products (best-selling / featured / newest / on-sale / by category) and renders
+  the shared product card. Height exact; the pixel diff is dominated by the store surfacing
+  different products than the design's four repeated placeholders — the card structure,
+  geometry and height all overlap.
+- New **shared product card** (`includes/product-card.php` + `redpoint-product-card.css`) —
+  Best Sellers, Worth Attention, upsell and "you may like" all render it. Real prices in ₪
+  (old struck red, new white), gold star rating, on-sale/new badge, working add-to-cart.
+- New **carousel JS** (`redpoint-carousel.js`) — dot paging for the product/blog/testimonial
+  rows. Dependency-free, enqueued only where used, degrades to the first page with JS off.
+- Demo products now carry a short description (setup-products.sh) — the card shows it, and
+  without it each card is ~60px short, pulling the grid off the design height.
+
 ## 1.5.0
 - **Category Grid** — "למצוא את ההנאה שלך" (109:311). 1440x842, height exact, 3.2% pixel
   diff (the noise floor; the Next.js build scores 3.2% on the same section).
