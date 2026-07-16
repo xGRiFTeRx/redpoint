@@ -9,6 +9,16 @@ refuses to overwrite a zip that already exists, so a forgotten bump fails loudly
 silently shipping the wrong contents.
 
 ---
+## 1.11.0 — home page complete
+- **Newsletter** — "הצטרפו לרשימת התפוצה הדיסקרטית" (109:751). Photo card + wash + centred
+  black panel, two-line Futurism heading, subtitle, and an email field + white pill button.
+  The form works: it validates and confirms (button turns green, subtitle swaps to the
+  success line) like the Next.js reference. A "Form action URL" wires real submission to an
+  email provider; or drop an Elementor Pro Form into a styled container instead.
+- This completes the **home page** — 12 widgets: Header, Hero, Trust Strip, Promo Banner,
+  Category Grid, Best Sellers, Worth Attention, Blog Teaser, Testimonials, Brand Story,
+  Newsletter, Footer.
+
 ## 1.10.0
 - **Brand Story** — "40 שנים בחושך" (109:744). Centred two-tone headline (Futurism 90/80,
   line 1 white, line 2 red) + a 573px paragraph. 1.5% pixel diff, height exact. The red glow

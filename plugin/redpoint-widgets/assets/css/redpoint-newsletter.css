@@ -1,0 +1,183 @@
+/* ================================================
+   RED POINT — NEWSLETTER  "הצטרפו לרשימת התפוצה הדיסקרטית"  (Figma 109:751)
+   ================================================
+   section  padding 32/60 · on #0C0C0C
+   card     1320x400 · 24px radius · photo + black/20 wash
+   panel    486px · black/40 · 32px radius · 24px padding · 32px gap
+   heading  Futurism 50 · centred in a 407px box
+   form     email field (right) + white pill submit (left)
+   ================================================ */
+
+.rp-news {
+	width: 100%;
+	max-width: 1440px;
+	margin: 0 auto;
+	padding: 32px 60px;
+	box-sizing: border-box;
+	background-color: #0C0C0C;
+}
+
+.rp-news__card {
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 400px;
+	border-radius: 24px;
+	overflow: hidden;
+}
+
+/* Ancestor in the selector (0,2,0) so it beats Elementor's `.elementor img{height:auto}`.
+   The Figma scales the photo to 220% and offsets it, so the visible band centres ~42% down
+   — object-position matches that framing. */
+.rp-news__card .rp-news__media {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center 42%;
+	z-index: 0;
+}
+
+.rp-news__wash {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+
+/* ------------------------------------------------
+   PANEL  (109:752) — 486px, black/40
+   ------------------------------------------------ */
+.rp-news__panel {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	width: 486px;
+	max-width: 100%;
+	padding: 24px;
+	border-radius: 32px;
+	background-color: rgba(0, 0, 0, 0.4);
+	box-sizing: border-box;
+}
+
+.rp-news__text {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.rp-news__title {
+	/* 407px box (109:755) — that width is what breaks the line after "לרשימת". */
+	width: 407px;
+	max-width: 100%;
+	margin: 0 auto;
+	font-family: 'Futurism', sans-serif;
+	font-size: 50px;
+	line-height: 1;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+.rp-news__title-lead {
+	font-weight: 300;
+}
+
+.rp-news__subtitle {
+	margin: 0;
+	font-family: 'Google Sans', sans-serif;
+	font-size: 16px;
+	line-height: 1.4;
+	color: rgba(255, 255, 255, 0.8);
+	text-align: center;
+}
+
+/* ------------------------------------------------
+   FORM  — field (right) + button (left)
+   ------------------------------------------------ */
+.rp-news__form {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	width: 100%;
+}
+
+.rp-news__input {
+	flex: 1;
+	min-width: 0;
+	height: 40px;
+	padding: 8px 12px;
+	border: 0;
+	border-radius: 32px;
+	background-color: rgba(255, 255, 255, 0.2);
+	font-family: 'Google Sans', sans-serif;
+	font-size: 16px;
+	color: #FFFFFF;
+	text-align: right;
+	box-sizing: border-box;
+}
+
+.rp-news__input::placeholder {
+	color: #E9E9E9;
+}
+
+.rp-news__input:focus {
+	outline: 2px solid rgba(255, 255, 255, 0.5);
+	outline-offset: 1px;
+}
+
+.rp-news__submit {
+	flex: 0 0 auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 146px;
+	height: 40px;
+	padding: 0 24px;
+	border: 0;
+	border-radius: 100px;
+	background-color: #FFFFFF;
+	font-family: 'Google Sans', sans-serif;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1;
+	color: #0C0C0C;
+	cursor: pointer;
+	box-sizing: border-box;
+	transition: background-color 0.15s ease;
+}
+
+.rp-news__submit:hover {
+	background-color: #E6E6E6;
+}
+
+/* Confirmation state — the button turns the design's green with a tick. */
+.rp-news__submit.is-done {
+	background-color: #36E07A;
+}
+
+/* ------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------ */
+@media (max-width: 1024px) {
+	.rp-news {
+		padding: 24px;
+	}
+	.rp-news__title {
+		font-size: 36px;
+	}
+}
+
+@media (max-width: 480px) {
+	.rp-news__form {
+		flex-direction: column;
+	}
+	.rp-news__input,
+	.rp-news__submit {
+		width: 100%;
+	}
+}
