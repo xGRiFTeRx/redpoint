@@ -1,0 +1,131 @@
+/* ================================================
+   RED POINT — WORTH ATTENTION  "מוצרים ששווים תשומת הלב"  (Figma 109:478)
+   ================================================
+   section  1440x1662 · padding 90/60/68 · 50px gaps
+   rows     three cards each, 16px gap
+   strip    value badges (109:555) — 4 chips, title only
+   button   solid "לכל המוצרים", centred
+   ================================================ */
+
+.rp-worth {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	width: 100%;
+	max-width: 1440px;
+	margin: 0 auto;
+	padding: 90px 60px 68px;
+	box-sizing: border-box;
+}
+
+.rp-worth__row {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 16px;
+}
+
+/* ------------------------------------------------
+   VALUE STRIP  (109:555)
+   ------------------------------------------------
+   direction: ltr, like the trust strip. The design reads דיסקרטיות → איכות → שקיפות →
+   שירות אישי from the LEFT (Figma's LTR canvas); under the page's RTL a centred flex row
+   would fill right-to-left and mirror them. Forcing the row to ltr keeps source order and
+   visual order the same. */
+.rp-worth__values {
+	display: flex;
+	direction: ltr;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 90px;
+	padding: 16px 0;
+}
+
+.rp-worth__value {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	width: 131px;
+	text-align: center;
+}
+
+/* Chip — 20px red glyph on a 10%-red circle (same as the trust badges). */
+.rp-worth__value-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px;
+	border-radius: 50%;
+	background-color: rgba(255, 59, 59, 0.1);
+	color: #FF3B3B;
+}
+
+.rp-worth__value-icon svg {
+	display: block;
+	width: 20px;
+	height: 20px;
+	fill: none;
+}
+
+.rp-worth__value-label {
+	font-family: 'Google Sans', sans-serif;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 1;
+	color: #FFFFFF;
+}
+
+/* ------------------------------------------------
+   BUTTON  (109:649) — solid white pill, centred
+   ------------------------------------------------ */
+.rp-worth__more-row {
+	display: flex;
+	justify-content: center;
+}
+
+.rp-worth__more {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 400px;
+	max-width: 100%;
+	height: 40px;
+	padding: 0 32px;
+	border-radius: 100px;
+	background-color: #FFFFFF;
+	font-family: 'Google Sans', sans-serif;
+	font-size: 18px;
+	font-weight: 600;
+	line-height: 1;
+	color: #0C0C0C;
+	text-decoration: none;
+	box-sizing: border-box;
+	transition: background-color 0.15s ease;
+}
+
+.rp-worth__more:hover {
+	background-color: #E6E6E6;
+	color: #0C0C0C;
+}
+
+/* ------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------ */
+@media (max-width: 1024px) {
+	.rp-worth {
+		padding: 60px 24px;
+	}
+	.rp-worth__row {
+		grid-template-columns: repeat(2, 1fr);
+	}
+	.rp-worth__values {
+		flex-wrap: wrap;
+		gap: 40px;
+	}
+}
+
+@media (max-width: 560px) {
+	.rp-worth__row {
+		grid-template-columns: 1fr;
+	}
+}

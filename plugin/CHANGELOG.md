@@ -9,6 +9,16 @@ refuses to overwrite a zip that already exists, so a forgotten bump fails loudly
 silently shipping the wrong contents.
 
 ---
+## 1.7.0
+- **Worth Attention** — "מוצרים ששווים תשומת הלב" (109:478). Two rows of three (the shared
+  product card) with the value-badges strip between them and a solid "לכל המוצרים" button —
+  no carousel. 1440x1662, height exact.
+- The value strip is four icon chips (discretion / quality / transparency / service), title
+  only, forced direction:ltr like the trust strip so the design's left-to-right order holds
+  under RTL.
+- Added a shared `redpoint_query_products()` to the product-card include — Worth Attention,
+  and later the upsell and "you may like" rows, all query through it.
+
 ## 1.6.0
 - **Best Sellers** — "הנמכרים ביותר" (109:372). The first widget that binds to WooCommerce:
   it queries products (best-selling / featured / newest / on-sale / by category) and renders

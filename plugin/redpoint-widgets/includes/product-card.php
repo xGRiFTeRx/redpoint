@@ -21,6 +21,69 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Query products for a section (Best Sellers, Worth Attention, upsell, "you may like").
+ *
+ * @param array $q 'source' (best_selling|featured|newest|on_sale|category), 'count',
+ *                 'category' (array of slugs), 'exclude' (product id to skip).
+ * @return \WC_Product[]
+ */
+function redpoint_query_products( $q ) {
+	if ( ! function_exists( 'wc_get_products' ) ) {
+		return array();
+	}
+
+	$source = isset( $q['source'] ) ? $q['source'] : 'newest';
+	$count  = isset( $q['count'] ) ? max( 1, (int) $q['count'] ) : 8;
+
+	$args = array(
+		'status'  => 'publish',
+		'limit'   => $count,
+		'return'  => 'objects',
+		'orderby' => 'date',
+		'order'   => 'DESC',
+	);
+
+	if ( ! empty( $q['exclude'] ) ) {
+		$args['exclude'] = array( (int) $q['exclude'] );
+	}
+
+	switch ( $source ) {
+		case 'best_selling':
+			$args['orderby']  = 'meta_value_num';
+			$args['meta_key'] = 'total_sales'; // phpcs:ignore WordPress.DB.SlowDBQuery
+			$args['order']    = 'DESC';
+			break;
+		case 'featured':
+			$args['featured'] = true;
+			break;
+		case 'on_sale':
+			$ids = wc_get_product_ids_on_sale();
+			if ( empty( $ids ) ) {
+				return array();
+			}
+			$args['include'] = $ids;
+			break;
+		case 'category':
+			if ( ! empty( $q['category'] ) ) {
+				$args['category'] = (array) $q['category'];
+			}
+			break;
+	}
+
+	$products = wc_get_products( $args );
+
+	// best_selling / featured on a store with no sales or no featured flags yet would come
+	// back empty; fall back to newest so a section never renders blank.
+	if ( empty( $products ) && in_array( $source, array( 'best_selling', 'featured' ), true ) ) {
+		unset( $args['meta_key'], $args['featured'] );
+		$args['orderby'] = 'date';
+		$products = wc_get_products( $args );
+	}
+
+	return $products;
+}
+
+/**
  * Render one product card from a WooCommerce product.
  *
  * @param \WC_Product $product The product.

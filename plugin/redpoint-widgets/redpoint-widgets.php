@@ -4,7 +4,7 @@ Plugin Name: RED POINT Widgets
 Plugin URI:  https://github.com/xGRiFTeRx/redpoint
 Description: Custom Elementor widgets for the RED POINT store (RTL Hebrew). One widget per
              section of the Figma design, so a section can be fixed in isolation.
-Version:     1.6.2
+Version:     1.7.0
 Author:      Rovic de Lara
 Text Domain: redpoint-widgets
 */
@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'REDPOINT_WIDGETS_VERSION', '1.6.2' );
+define( 'REDPOINT_WIDGETS_VERSION', '1.7.0' );
 define( 'REDPOINT_WIDGETS_FILE', __FILE__ );
 define( 'REDPOINT_WIDGETS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'REDPOINT_WIDGETS_URL', plugin_dir_url( __FILE__ ) );
@@ -51,6 +51,7 @@ add_action(
 		require_once REDPOINT_WIDGETS_PATH . 'widgets/class-promo-banner-widget.php';
 		require_once REDPOINT_WIDGETS_PATH . 'widgets/class-category-grid-widget.php';
 		require_once REDPOINT_WIDGETS_PATH . 'widgets/class-best-sellers-widget.php';
+		require_once REDPOINT_WIDGETS_PATH . 'widgets/class-worth-attention-widget.php';
 		require_once REDPOINT_WIDGETS_PATH . 'widgets/class-footer-widget.php';
 
 		$widgets_manager->register( new \RedPoint\Widgets\Header_Widget() );
@@ -59,6 +60,7 @@ add_action(
 		$widgets_manager->register( new \RedPoint\Widgets\Promo_Banner_Widget() );
 		$widgets_manager->register( new \RedPoint\Widgets\Category_Grid_Widget() );
 		$widgets_manager->register( new \RedPoint\Widgets\Best_Sellers_Widget() );
+		$widgets_manager->register( new \RedPoint\Widgets\Worth_Attention_Widget() );
 		$widgets_manager->register( new \RedPoint\Widgets\Footer_Widget() );
 	}
 );
@@ -133,6 +135,13 @@ function redpoint_widgets_enqueue_assets() {
 	wp_enqueue_style(
 		'redpoint-widgets-best-sellers',
 		REDPOINT_WIDGETS_URL . 'assets/css/redpoint-best-sellers.css',
+		array( 'redpoint-widgets-product-card' ),
+		REDPOINT_WIDGETS_VERSION
+	);
+
+	wp_enqueue_style(
+		'redpoint-widgets-worth-attention',
+		REDPOINT_WIDGETS_URL . 'assets/css/redpoint-worth-attention.css',
 		array( 'redpoint-widgets-product-card' ),
 		REDPOINT_WIDGETS_VERSION
 	);
