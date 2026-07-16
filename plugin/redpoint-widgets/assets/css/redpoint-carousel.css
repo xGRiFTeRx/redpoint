@@ -38,6 +38,10 @@
 	appearance: none;
 	-webkit-appearance: none;
 	box-sizing: border-box;
+	/* inline-block so a decorative <span> dot respects width/height, and flex:0 0 auto so a
+	   <button> dot does not stretch. Both element types are used — functional dots are
+	   buttons (Best Sellers), decorative ones are spans (Blog, Testimonials). */
+	display: inline-block;
 	flex: 0 0 auto;
 	width: 13px;
 	height: 13px;

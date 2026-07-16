@@ -43,10 +43,6 @@ class Blog_Teaser_Widget extends Widget_Base {
 		return array( 'blog', 'posts', 'articles', 'redpoint' );
 	}
 
-	public function get_script_depends() {
-		return array( 'redpoint-carousel' );
-	}
-
 	protected function register_controls() {
 
 		/* ── Heading ── */
@@ -102,10 +98,10 @@ class Blog_Teaser_Widget extends Widget_Base {
 			array(
 				'label'       => 'How many',
 				'type'        => Controls_Manager::NUMBER,
-				'default'     => 6,
+				'default'     => 3,
 				'min'         => 1,
 				'max'         => 12,
-				'description' => 'Shown three at a time; the dots page through the rest.',
+				'description' => 'The design shows one row of three.',
 			)
 		);
 
@@ -121,7 +117,16 @@ class Blog_Teaser_Widget extends Widget_Base {
 
 		$this->add_control(
 			'dots',
-			array( 'label' => 'Show Dots', 'type' => Controls_Manager::SWITCHER, 'return_value' => 'yes', 'default' => 'yes' )
+			array(
+				'label'       => 'Dots',
+				'type'        => Controls_Manager::NUMBER,
+				'default'     => 4,
+				'min'         => 0,
+				'max'         => 8,
+				// Decorative, matching the Figma (109:693) and the Next.js reference — the
+				// design draws four dots over a single row of posts. 0 hides them.
+				'description' => 'The design draws four. Decorative — set 0 to hide.',
+			)
 		);
 
 		$this->end_controls_section();
@@ -187,8 +192,10 @@ class Blog_Teaser_Widget extends Widget_Base {
 		}
 
 		$columns   = max( 1, (int) $s['columns'] );
-		$pages     = array_chunk( $post_ids, $columns );
-		$show_dots = 'yes' === $s['dots'] && count( $pages ) > 1;
+		// One row, reversed for RTL. The dots are decorative (see the control), so there is
+		// no page-chunking — the design shows a single row of posts.
+		$row       = array_reverse( $post_ids );
+		$dots      = max( 0, (int) $s['dots'] );
 		$kicker    = array_filter( array_map( 'trim', explode( "\n", (string) $s['kicker'] ) ) );
 		?>
 		<section class="rp-blog" dir="rtl">
@@ -211,23 +218,20 @@ class Blog_Teaser_Widget extends Widget_Base {
 
 			<div class="rp-carousel" style="--rp-cols: <?php echo (int) $columns; ?>;">
 				<div class="rp-carousel__pages">
-					<?php foreach ( $pages as $page_i => $page ) : ?>
-						<?php $row = array_reverse( $page ); // RTL: reverse each row ?>
-						<div class="rp-carousel__page"<?php echo $page_i > 0 ? ' hidden' : ''; ?>>
-							<?php foreach ( $row as $post_id ) : ?>
-								<?php $this->render_card( $post_id, $s['read_more'] ); ?>
-							<?php endforeach; ?>
-						</div>
-					<?php endforeach; ?>
+					<div class="rp-carousel__page">
+						<?php foreach ( $row as $post_id ) : ?>
+							<?php $this->render_card( $post_id, $s['read_more'] ); ?>
+						<?php endforeach; ?>
+					</div>
 				</div>
 
-				<?php if ( $show_dots ) : ?>
-					<div class="rp-carousel__dots" role="tablist">
-						<?php foreach ( $pages as $page_i => $page ) : ?>
-							<button type="button" class="rp-carousel__dot<?php echo 0 === $page_i ? ' is-active' : ''; ?>"
-								role="tab" aria-selected="<?php echo 0 === $page_i ? 'true' : 'false'; ?>"
-								aria-label="<?php echo esc_attr( $page_i + 1 ); ?>"></button>
-						<?php endforeach; ?>
+				<?php if ( $dots > 0 ) : ?>
+					<?php /* Decorative — a single page of content, so the carousel JS no-ops
+					         and these are purely visual, as in the design. */ ?>
+					<div class="rp-carousel__dots" aria-hidden="true">
+						<?php for ( $i = 0; $i < $dots; $i++ ) : ?>
+							<span class="rp-carousel__dot<?php echo 0 === $i ? ' is-active' : ''; ?>"></span>
+						<?php endfor; ?>
 					</div>
 				<?php endif; ?>
 			</div>
