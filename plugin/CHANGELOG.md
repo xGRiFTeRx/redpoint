@@ -9,6 +9,14 @@ refuses to overwrite a zip that already exists, so a forgotten bump fails loudly
 silently shipping the wrong contents.
 
 ---
+## 1.9.0
+- **Testimonials** — "מדברים עלינו" (109:698). Two review cards (portrait + stars + quote +
+  name) over the full-bleed pink gradient, centred heading. 4.2% pixel diff — the portraits
+  match the design. A repeater, not a Woo query (site testimonials, not per-product reviews);
+  shown two at a time, dots page through more if the client adds them. With the two design
+  testimonials it is one page, so the dots hide (that is the -74px vs the mock, which drew
+  four decorative dots).
+
 ## 1.8.0
 - **Blog Teaser** — "שווה לדעת" (109:652). Three post cards + dots, binding to WordPress
   posts (query by category/count). Height ~exact; 17% pixel diff — the lowest of any grid,

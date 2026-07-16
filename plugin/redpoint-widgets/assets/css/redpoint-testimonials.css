@@ -1,0 +1,155 @@
+/* ================================================
+   RED POINT — TESTIMONIALS  "מדברים עלינו"  (Figma 109:698)
+   ================================================
+   section  1440x813 · padding 80/60 · gap 60 · full-bleed pink gradient bg · centred
+   heading  Futurism 80 white
+   card     648x448 · bg rgba(0,0,0,0.8) · 24px radius · 24px padding
+            portrait 267x400 + copy (stars 16 · date · quote · name)
+   ================================================ */
+
+.rp-testimonials {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 60px;
+	width: 100%;
+	padding: 80px 60px;
+	box-sizing: border-box;
+	background-color: #0C0C0C;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.rp-testimonials__heading {
+	margin: 0;
+	font-family: 'Futurism', sans-serif;
+	font-size: 80px;
+	line-height: 0.9;
+	color: #FFFFFF;
+	text-align: center;
+}
+
+.rp-testimonials__carousel {
+	width: 100%;
+	max-width: 1320px;
+}
+
+/* Two cards per page in the design; the shared .rp-carousel__page grid uses --rp-cols. */
+
+/* ------------------------------------------------
+   CARD  (109:701)
+   ------------------------------------------------ */
+.rp-tcard {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	height: 448px;
+	padding: 24px;
+	border-radius: 24px;
+	background-color: rgba(0, 0, 0, 0.8);
+	box-sizing: border-box;
+}
+
+/* Copy on the right (first child under RTL). */
+.rp-tcard__copy {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 12px;
+	padding: 16px;
+	text-align: right;
+	min-width: 0;
+}
+
+.rp-tcard__stars {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-bottom: 4px;
+}
+
+.rp-tcard__star {
+	width: 16px;
+	height: 16px;
+	flex-shrink: 0;
+	color: rgba(255, 255, 255, 0.15);
+}
+
+.rp-tcard__star.is-on {
+	color: #FFD13B;
+}
+
+.rp-tcard__date {
+	font-family: 'Google Sans', sans-serif;
+	font-size: 12px;
+	line-height: 1.4;
+	color: #818181;
+}
+
+.rp-tcard__quote {
+	margin: 0;
+	font-family: 'Google Sans', sans-serif;
+	font-size: 14px;
+	line-height: 1.4;
+	color: #FFFFFF;
+
+	/* Clamp so an over-long quote keeps the card at 448 rather than overflowing it. */
+	display: -webkit-box;
+	-webkit-line-clamp: 11;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.rp-tcard__name {
+	font-family: 'Google Sans', sans-serif;
+	font-size: 14px;
+	line-height: 1.4;
+	color: #818181;
+}
+
+/* ------------------------------------------------
+   PORTRAIT  (109:703) — 267x400, square, on the LEFT
+   ------------------------------------------------ */
+.rp-tcard__portrait {
+	flex-shrink: 0;
+	width: 267px;
+	height: 400px;
+	overflow: hidden;
+}
+
+/* Ancestor in the selector (0,2,0) so it beats Elementor's `.elementor img{height:auto}`
+   (0,1,1). See redpoint.css. */
+.rp-tcard__portrait .rp-tcard__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* ------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------ */
+@media (max-width: 1024px) {
+	.rp-testimonials {
+		padding: 60px 24px;
+	}
+	.rp-testimonials__heading {
+		font-size: 48px;
+	}
+	.rp-testimonials__carousel .rp-carousel__page {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 560px) {
+	.rp-tcard {
+		flex-direction: column;
+		height: auto;
+	}
+	.rp-tcard__portrait {
+		width: 100%;
+		height: 300px;
+		order: -1;
+	}
+}
