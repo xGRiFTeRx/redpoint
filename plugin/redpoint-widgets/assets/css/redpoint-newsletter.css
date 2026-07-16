@@ -113,7 +113,11 @@
 	width: 100%;
 }
 
-.rp-news__input {
+/* Scoped under .rp-news__form (0,2,0) throughout. Hello Elementor's reset.css sets
+   `input[type="email"] { border-radius: 3px }` and buttons likewise at (0,1,1), which
+   outranks a bare .rp-news__input (0,1,0) — the field rendered a 3px radius instead of the
+   design's pill. The ancestor selector wins cleanly. Same trap as the carousel dots. */
+.rp-news__form .rp-news__input {
 	flex: 1;
 	min-width: 0;
 	height: 40px;
@@ -128,16 +132,16 @@
 	box-sizing: border-box;
 }
 
-.rp-news__input::placeholder {
+.rp-news__form .rp-news__input::placeholder {
 	color: #E9E9E9;
 }
 
-.rp-news__input:focus {
+.rp-news__form .rp-news__input:focus {
 	outline: 2px solid rgba(255, 255, 255, 0.5);
 	outline-offset: 1px;
 }
 
-.rp-news__submit {
+.rp-news__form .rp-news__submit {
 	flex: 0 0 auto;
 	display: flex;
 	align-items: center;
@@ -158,12 +162,12 @@
 	transition: background-color 0.15s ease;
 }
 
-.rp-news__submit:hover {
+.rp-news__form .rp-news__submit:hover {
 	background-color: #E6E6E6;
 }
 
 /* Confirmation state — the button turns the design's green with a tick. */
-.rp-news__submit.is-done {
+.rp-news__form .rp-news__submit.is-done {
 	background-color: #36E07A;
 }
 
