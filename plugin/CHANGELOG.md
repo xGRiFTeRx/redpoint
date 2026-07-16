@@ -9,6 +9,15 @@ refuses to overwrite a zip that already exists, so a forgotten bump fails loudly
 silently shipping the wrong contents.
 
 ---
+## 1.5.0
+- **Category Grid** — "למצוא את ההנאה שלך" (109:311). 1440x842, height exact, 3.2% pixel
+  diff (the noise floor; the Next.js build scores 3.2% on the same section).
+- The section HEADING (two-tone Futurism 80 + kicker) moved to the shared redpoint.css, so
+  every section that opens with it — bestsellers, worth-attention, blog — reuses one style.
+- The 2x2 needs the RTL pair-swap: an RTL grid fills each row right-to-left, so without it
+  the cards come out mirrored (right photo, wrong side). This was THE recurring bug on the
+  Next.js build. The repeater stays in reading order; the swap is render-only.
+
 ## 1.3.0
 - **Hero** (109:212). 1440x800 — height exact, 2.4% pixel diff (the noise floor; the Next.js
   build scores 2.5% on the same comparison).

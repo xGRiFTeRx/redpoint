@@ -1,0 +1,150 @@
+/* ================================================
+   RED POINT — CATEGORY GRID  "למצוא את ההנאה שלך"  (Figma 109:311)
+   ================================================
+   section  1440x842 · padding 60/60 · heading, 50px gap, then the grid
+   grid     1320x600 · two equal columns · 16px gap
+   left     tall card 652x600 (109:316)
+   right    2x2 of 318x292 (109:328/339/350/361)
+   card     photo · 162px scrim to #0C0C0C · title Futurism 30 · desc 12/ white55 · CTA
+   ================================================ */
+
+.rp-cat-grid {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	width: 100%;
+	max-width: 1440px;
+	margin: 0 auto;
+	padding: 60px;
+	box-sizing: border-box;
+}
+
+/* ------------------------------------------------
+   LAYOUT
+   ------------------------------------------------
+   Two equal columns. The 2x2 (.rp-cat-grid__quad) is the FIRST child, so under RTL it
+   paints on the RIGHT; the tall card is second and lands on the LEFT — matching the
+   design, where the tall card is on the left. */
+.rp-cat-grid__layout {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+
+.rp-cat-grid__quad {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+
+/* ------------------------------------------------
+   CARD
+   ------------------------------------------------ */
+.rp-cat-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	height: 292px;
+	overflow: hidden;
+	text-decoration: none;
+	/* Square corners — the cards carry NO border-radius in the design (109:316, 109:328). */
+}
+
+.rp-cat-card--tall {
+	height: 600px;
+}
+
+/* Ancestor in the selector (0,2,0) so it beats Elementor's `.elementor img { height:auto }`
+   (0,1,1) — otherwise the photo collapses to its natural aspect and the crop is wrong. See
+   the note in redpoint.css. */
+.rp-cat-card .rp-cat-card__media {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	z-index: 0;
+}
+
+/* 162px scrim fading up to #0C0C0C so the copy reads over the photo.
+
+   NO backdrop-filter, although the Figma puts a 3px blur on this. backdrop-filter promotes
+   the element to its own compositing layer, which Chrome does not antialias against a
+   rounded parent — the same corner-hairline problem as the promo banner. These cards are
+   square so the hairline would not appear, but the blur is dropped for consistency and
+   because a 3px blur under the scrim gradient is invisible anyway. */
+.rp-cat-card__scrim {
+	position: absolute;
+	inset-inline: 0;
+	bottom: 0;
+	height: 162px;
+	z-index: 1;
+	pointer-events: none;
+	background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 4.6%, #0C0C0C 87.5%);
+}
+
+.rp-cat-card__body {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 24px;
+	padding: 24px 16px;
+}
+
+.rp-cat-card__text {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	width: 100%;
+	text-align: right;
+}
+
+.rp-cat-card__title {
+	font-family: 'Futurism', sans-serif;
+	font-size: 30px;
+	line-height: 30px;
+	color: #FFFFFF;
+}
+
+.rp-cat-card__desc {
+	font-family: 'Google Sans', sans-serif;
+	font-size: 12px;
+	line-height: 1;
+	color: rgba(255, 255, 255, 0.55);
+}
+
+/* The CTA colour is set inline per card (each category owns a colour). */
+.rp-cat-card__cta {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-family: 'Google Sans', sans-serif;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1;
+}
+
+.rp-cat-card__cta svg {
+	width: 14px;
+	height: 14px;
+}
+
+/* ------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------
+   The Figma has no mobile frames, so this is a sensible fallback, not a specified layout —
+   the tall card stacks above the 2x2. */
+@media (max-width: 1024px) {
+	.rp-cat-grid {
+		padding: 40px 24px;
+	}
+	.rp-cat-grid__layout {
+		grid-template-columns: 1fr;
+	}
+	.rp-cat-card--tall {
+		height: 400px;
+	}
+}
