@@ -1,0 +1,96 @@
+/* ================================================
+   RED POINT — BRAND STORY  "40 שנים בחושך"  (Figma 109:744)
+   ================================================
+   section  1440x650 · padding 140/60 · centred
+   headline 90/80 · tracking -2.2 · line 1 white, line 2 accent red
+   body     573px · 16/1.4 · white/55
+   ================================================ */
+
+.rp-brand {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 650px;
+	width: 100%;
+	padding: 140px 60px;
+	overflow: hidden;
+	background-color: #0C0C0C;
+	box-sizing: border-box;
+}
+
+/* The radial glow — rgba(255,59,59,0.14) anchored bottom-centre, gone by 60%. This is what
+   stops the section reading as flat black. It was the one genuine miss when this design was
+   first converted, because it is encoded as a background image in the Figma. */
+.rp-brand--glow {
+	background-image: radial-gradient(1610px 727px at 50% 100%, rgba(255, 59, 59, 0.14) 0%, rgba(255, 59, 59, 0) 60%);
+}
+
+/* The soft blurred red block behind the copy (109:745) — 500x144, 10% red, 80px blur. */
+.rp-brand__block {
+	position: absolute;
+	left: 32.6%;
+	top: 48.9%;
+	width: 500px;
+	height: 144px;
+	z-index: 0;
+	pointer-events: none;
+	background-color: rgba(255, 59, 59, 0.1);
+	filter: blur(80px);
+}
+
+.rp-brand__inner {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 32px;
+	text-align: center;
+}
+
+.rp-brand__headline {
+	margin: 0;
+	font-family: 'Futurism', sans-serif;
+	font-size: 90px;
+	line-height: 80px;
+	letter-spacing: -2.2px;
+}
+
+.rp-brand__lead,
+.rp-brand__accent {
+	display: block;
+}
+
+.rp-brand__lead {
+	font-weight: 300;
+	color: #FFFFFF;
+}
+
+.rp-brand__accent {
+	color: #FF3B3B;
+}
+
+.rp-brand__body {
+	margin: 0;
+	width: 573px;
+	max-width: 100%;
+	font-family: 'Google Sans', sans-serif;
+	font-size: 16px;
+	line-height: 1.4;
+	color: rgba(255, 255, 255, 0.55);
+}
+
+/* ------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------ */
+@media (max-width: 1024px) {
+	.rp-brand {
+		padding: 80px 24px;
+	}
+	.rp-brand__headline {
+		font-size: 52px;
+		line-height: 48px;
+	}
+}

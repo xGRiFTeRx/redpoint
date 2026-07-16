@@ -9,6 +9,12 @@ refuses to overwrite a zip that already exists, so a forgotten bump fails loudly
 silently shipping the wrong contents.
 
 ---
+## 1.10.0
+- **Brand Story** — "40 שנים בחושך" (109:744). Centred two-tone headline (Futurism 90/80,
+  line 1 white, line 2 red) + a 573px paragraph. 1.5% pixel diff, height exact. The red glow
+  — a bottom-centre radial gradient plus a blurred block behind the copy — is a toggle;
+  without it the section reads as flat black (it was THE miss on the original conversion).
+
 ## 1.9.0
 - **Testimonials** — "מדברים עלינו" (109:698). Two review cards (portrait + stars + quote +
   name) over the full-bleed pink gradient, centred heading. 4.2% pixel diff — the portraits
