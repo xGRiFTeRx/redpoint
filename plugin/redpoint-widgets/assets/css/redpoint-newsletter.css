@@ -28,15 +28,22 @@
 }
 
 /* Ancestor in the selector (0,2,0) so it beats Elementor's `.elementor img{height:auto}`.
-   The Figma scales the photo to 220% and offsets it, so the visible band centres ~42% down
-   — object-position matches that framing. */
+
+   The Figma frames this photo precisely (109:751): the fill is scaled to 220% of the card
+   (1320x880 for the 1600x1067 source, which preserves aspect) and offset to top:-43.4%, so
+   the visible 400px window runs from 19.7% to 65.2% down the scaled image.
+
+   object-fit:cover scales the source to exactly 1320x880 here, and object-position-Y then
+   picks that window: with 480px of vertical overflow, a top at 19.7% (173.6px) works out to
+   173.6 / 4.8 = 36%. NOT 42% — that was the centre of the band, a different number, and it
+   sat the photo 28px too low (more chin, less blindfold). */
 .rp-news__card .rp-news__media {
 	position: absolute;
 	inset: 0;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-	object-position: center 42%;
+	object-position: center 36%;
 	z-index: 0;
 }
 
