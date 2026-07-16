@@ -112,10 +112,12 @@ class Best_Sellers_Widget extends Widget_Base {
 			array(
 				'label'   => 'How many',
 				'type'    => Controls_Manager::NUMBER,
-				'default' => 8,
+				// 12 = three pages of four, matching the Next.js reference. The dot count is
+				// count / columns, so this is what sets it: 12/4 = 3 dots, 8/4 = 2, etc.
+				'default' => 12,
 				'min'     => 1,
 				'max'     => 24,
-				'description' => 'Shown four at a time; the dots page through the rest.',
+				'description' => 'Shown four at a time; the dots page through the rest. 12 = 3 pages.',
 			)
 		);
 
