@@ -9,6 +9,15 @@ refuses to overwrite a zip that already exists, so a forgotten bump fails loudly
 silently shipping the wrong contents.
 
 ---
+## 1.8.0
+- **Blog Teaser** — "שווה לדעת" (109:652). Three post cards + dots, binding to WordPress
+  posts (query by category/count). Height ~exact; 17% pixel diff — the lowest of any grid,
+  because the cards reuse the design's three photos. Dates localise to Hebrew (correct for
+  the site; the design's English date was lorem).
+- Carousel/dots CSS extracted to a shared `redpoint-carousel.css` (Best Sellers + Blog).
+- `setup-posts.sh` seeds six demo posts so the teaser renders locally — the client writes
+  real articles; the Figma fills these with lorem.
+
 ## 1.7.0
 - **Worth Attention** — "מוצרים ששווים תשומת הלב" (109:478). Two rows of three (the shared
   product card) with the value-badges strip between them and a solid "לכל המוצרים" button —

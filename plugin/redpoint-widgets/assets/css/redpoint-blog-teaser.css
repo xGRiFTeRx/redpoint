@@ -1,0 +1,133 @@
+/* ================================================
+   RED POINT — BLOG TEASER  "שווה לדעת"  (Figma 109:652)
+   ================================================
+   section  1440x877 · padding 90/60/68 · heading, 50px gap, row of 3, dots
+   card     429x534 (109:657) — image 305, then #111 body
+   The carousel + dots styling is shared — see redpoint-carousel.css.
+   ================================================ */
+
+.rp-blog {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	width: 100%;
+	max-width: 1440px;
+	margin: 0 auto;
+	padding: 90px 60px 68px;
+	box-sizing: border-box;
+}
+
+/* ------------------------------------------------
+   CARD  (109:657)
+   ------------------------------------------------ */
+.rp-blog-card {
+	display: flex;
+	flex-direction: column;
+}
+
+.rp-blog-card__media {
+	display: block;
+	height: 305px;
+	border-radius: 4px 4px 0 0;
+	overflow: hidden;
+}
+
+/* Ancestor in the selector (0,2,0) so it beats Elementor's `.elementor img{height:auto}`
+   (0,1,1) — otherwise the photo collapses to natural aspect. See redpoint.css. */
+.rp-blog-card__media .rp-blog-card__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.rp-blog-card__body {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 16px;
+	padding: 16px;
+	background-color: #111111;
+	border-radius: 0 0 4px 4px;
+}
+
+.rp-blog-card__head {
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	width: 100%;
+	text-align: right;
+}
+
+.rp-blog-card__date {
+	font-family: 'Google Sans', sans-serif;
+	font-size: 12px;
+	line-height: 1.4;
+	color: #818181;
+}
+
+.rp-blog-card__title {
+	font-family: 'Google Sans', sans-serif;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 1.3;
+	color: #FFFFFF;
+	text-decoration: none;
+
+	/* Clamp to two lines so uneven post titles keep the cards the same height — the design
+	   draws a two-line title (109:662). */
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.rp-blog-card__excerpt {
+	margin: 0;
+	width: 100%;
+	font-family: 'Google Sans', sans-serif;
+	font-size: 14px;
+	line-height: 1.4;
+	color: #C5C5C5;
+	text-align: right;
+
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+/* "Read more" — accent red with a 14px arrow. */
+.rp-blog-card__more {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-family: 'Google Sans', sans-serif;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 1;
+	color: #FF3B3B;
+	text-decoration: none;
+}
+
+.rp-blog-card__more svg {
+	width: 14px;
+	height: 14px;
+}
+
+/* ------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------ */
+@media (max-width: 1024px) {
+	.rp-blog {
+		padding: 60px 24px;
+	}
+	.rp-blog .rp-carousel__page {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+@media (max-width: 560px) {
+	.rp-blog .rp-carousel__page {
+		grid-template-columns: 1fr;
+	}
+}

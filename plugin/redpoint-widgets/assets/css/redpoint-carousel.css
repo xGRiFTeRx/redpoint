@@ -1,0 +1,63 @@
+/* ================================================
+   RED POINT — CAROUSEL  (shared)
+   ================================================
+   Paging for the product / blog / testimonial rows. One page = a grid of `--rp-cols`
+   items; the JS shows one page at a time and the dots switch between them.
+   ================================================ */
+
+.rp-carousel {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+}
+
+.rp-carousel__page {
+	display: grid;
+	grid-template-columns: repeat(var(--rp-cols, 4), 1fr);
+	gap: 16px;
+}
+
+.rp-carousel__page[hidden] {
+	display: none;
+}
+
+/* ------------------------------------------------
+   DOTS  (109:473 / 109:693)
+   ------------------------------------------------
+   A <button>, so it inherits the theme's button styling — Hello Elementor / Woo give it
+   padding, a min-width and a font-size that render it as a 34x18 pill instead of a 13px
+   circle. The reset zeroes all of that. Scoped under .rp-carousel__dots (0,2,0) with an
+   appearance reset, so it beats the theme's bare `button` rule cleanly. */
+.rp-carousel__dots {
+	display: flex;
+	justify-content: center;
+	gap: 16px;
+}
+
+.rp-carousel__dots .rp-carousel__dot {
+	appearance: none;
+	-webkit-appearance: none;
+	box-sizing: border-box;
+	flex: 0 0 auto;
+	width: 13px;
+	height: 13px;
+	min-width: 0;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 50%;
+	background-color: rgba(255, 255, 255, 0.2);
+	font-size: 0;
+	line-height: 0;
+	cursor: pointer;
+	transition: background-color 0.15s ease;
+}
+
+.rp-carousel__dots .rp-carousel__dot:hover {
+	background-color: rgba(255, 255, 255, 0.4);
+}
+
+.rp-carousel__dots .rp-carousel__dot.is-active {
+	background-color: #FF3B3B;
+}

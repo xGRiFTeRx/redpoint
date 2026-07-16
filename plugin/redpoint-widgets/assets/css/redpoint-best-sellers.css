@@ -2,6 +2,7 @@
    RED POINT — BEST SELLERS  "הנמכרים ביותר"  (Figma 109:372)
    ================================================
    section  1440x838 · padding 90/60/0 · heading, 50px gap, row of cards, dots
+   The carousel + dots styling is shared — see redpoint-carousel.css.
    ================================================ */
 
 .rp-bestsellers {
@@ -17,78 +18,17 @@
 	box-sizing: border-box;
 }
 
-.rp-carousel {
-	display: flex;
-	flex-direction: column;
-	gap: 50px;
-}
-
-/* One page = a row of `--rp-cols` cards. Pages stack; the JS shows one at a time. */
-.rp-carousel__page {
-	display: grid;
-	grid-template-columns: repeat(var(--rp-cols, 4), 1fr);
-	gap: 16px;
-}
-
-.rp-carousel__page[hidden] {
-	display: none;
-}
-
-/* ------------------------------------------------
-   DOTS
-   ------------------------------------------------ */
-.rp-carousel__dots {
-	display: flex;
-	justify-content: center;
-	gap: 16px;
-}
-
-/* A <button>, so it inherits the theme's button styling — Hello Elementor / Woo give it
-   padding, a min-width and a font-size that rendered the dot as a 34x18 pill instead of a
-   13px circle. The reset below zeroes all of that. Scoped under .rp-carousel__dots (0,2,0)
-   and with the appearance reset, it beats the theme's `button` (0,0,1) cleanly. */
-.rp-carousel__dots .rp-carousel__dot {
-	appearance: none;
-	-webkit-appearance: none;
-	box-sizing: border-box;
-	flex: 0 0 auto;
-	width: 13px;
-	height: 13px;
-	min-width: 0;
-	min-height: 0;
-	margin: 0;
-	padding: 0;
-	border: 0;
-	border-radius: 50%;
-	background-color: rgba(255, 255, 255, 0.2);
-	font-size: 0;
-	line-height: 0;
-	cursor: pointer;
-	transition: background-color 0.15s ease;
-}
-
-.rp-carousel__dots .rp-carousel__dot:hover {
-	background-color: rgba(255, 255, 255, 0.4);
-}
-
-.rp-carousel__dots .rp-carousel__dot.is-active {
-	background-color: #FF3B3B;
-}
-
-/* ------------------------------------------------
-   RESPONSIVE
-   ------------------------------------------------ */
 @media (max-width: 1024px) {
 	.rp-bestsellers {
 		padding: 60px 24px 0;
 	}
-	.rp-carousel__page {
+	.rp-bestsellers .rp-carousel__page {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
 
 @media (max-width: 560px) {
-	.rp-carousel__page {
+	.rp-bestsellers .rp-carousel__page {
 		grid-template-columns: 1fr;
 	}
 }
