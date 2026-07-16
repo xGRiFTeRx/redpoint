@@ -43,22 +43,35 @@
 	gap: 16px;
 }
 
-.rp-carousel__dot {
+/* A <button>, so it inherits the theme's button styling — Hello Elementor / Woo give it
+   padding, a min-width and a font-size that rendered the dot as a 34x18 pill instead of a
+   13px circle. The reset below zeroes all of that. Scoped under .rp-carousel__dots (0,2,0)
+   and with the appearance reset, it beats the theme's `button` (0,0,1) cleanly. */
+.rp-carousel__dots .rp-carousel__dot {
+	appearance: none;
+	-webkit-appearance: none;
+	box-sizing: border-box;
+	flex: 0 0 auto;
 	width: 13px;
 	height: 13px;
+	min-width: 0;
+	min-height: 0;
+	margin: 0;
 	padding: 0;
 	border: 0;
 	border-radius: 50%;
 	background-color: rgba(255, 255, 255, 0.2);
+	font-size: 0;
+	line-height: 0;
 	cursor: pointer;
 	transition: background-color 0.15s ease;
 }
 
-.rp-carousel__dot:hover {
+.rp-carousel__dots .rp-carousel__dot:hover {
 	background-color: rgba(255, 255, 255, 0.4);
 }
 
-.rp-carousel__dot.is-active {
+.rp-carousel__dots .rp-carousel__dot.is-active {
 	background-color: #FF3B3B;
 }
 
